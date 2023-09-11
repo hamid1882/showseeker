@@ -9,6 +9,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { LoginSchemaType } from '../types';
 import { LoginSchema } from '../schema';
+import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
 
 const users = [
   { email: "user1@example.com", password: "password1" },
@@ -27,12 +28,16 @@ function Login() {
   const [isUser, setIsUser] = useState(true);
 
   const onSubmit: SubmitHandler<LoginSchemaType> = async (data: LoginSchemaType) => {
-    onLoginUser(data);
-  }
+      await new Promise((resolve) => {
+        setTimeout(resolve, 2000);
+      });
+
+      onLoginUser(data);
+    }
 
   const onLoginUser = (data: LoginSchemaType) => {
-    // Check if the email and password matches any of the users
     const { email, password } = data;
+
     const matchedUser = users.find((user) => user.email === email && user.password === password);
 
     if (matchedUser) {
@@ -53,8 +58,7 @@ function Login() {
 
   const message = "User does not exist";
   const severity = "error";
-  const autoHideDuration = 3000;
-
+  const autoHideDuration = 2000;
 
   return (
     <div className="flex justify-center items-center -mt-14 h-full lg:h-screen">
@@ -77,11 +81,11 @@ function Login() {
               </span>
             )}
           </div>
-            <Button className="mt-4 p-2" variant="contained" color="inherit" fullWidth type="submit">
-              Login
+            <Button className="mt-4 p-2" variant="contained" color="inherit" fullWidth type="submit" disabled={isSubmitting}>
+              {isSubmitting ? <CircularProgress size={24} /> : "Login"}
             </Button>
         </form>
-        <Snackbar color="primary" open={!isUser} autoHideDuration={autoHideDuration} anchorOrigin={{ horizontal: "center", vertical: "top" }}>
+        <Snackbar color="primary" open={!isUser} autoHideDuration={autoHideDuration} anchorOrigin={{ horizontal: "center", vertical: "top" }} onClose={() => setIsUser(true)}>
           <Alert severity={severity}>{message}</Alert>
         </Snackbar>
       </div>
@@ -90,3 +94,4 @@ function Login() {
 }
 
 export default Login;
+
