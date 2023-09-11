@@ -81,7 +81,7 @@ function Login() {
               Login
             </Button>
         </form>
-        <Snackbar color="primary" open={!isUser} autoHideDuration={autoHideDuration}>
+        <Snackbar color="primary" open={!isUser} autoHideDuration={autoHideDuration} anchorOrigin={{ horizontal: "center", vertical: "top" }}>
           <Alert severity={severity}>{message}</Alert>
         </Snackbar>
       </div>
