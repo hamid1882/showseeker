@@ -10,6 +10,9 @@ import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { LoginSchemaType } from '../types';
 import { LoginSchema } from '../schema';
 import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
+import axios from 'axios';
+import { useRouter } from 'next/navigation'
+import { USER_DOES_NOT_EXIST } from '@/constants';
 
 const users = [
   { email: "user1@example.com", password: "password1" },
@@ -27,36 +30,50 @@ function Login() {
   });
   const [isUser, setIsUser] = useState(true);
 
-  const onSubmit: SubmitHandler<LoginSchemaType> = async (data: LoginSchemaType) => {
-      await new Promise((resolve) => {
-        setTimeout(resolve, 2000);
-      });
+  
 
+  const onSubmit: SubmitHandler<LoginSchemaType> = async (data: LoginSchemaType) => {
       onLoginUser(data);
     }
 
-  const onLoginUser = (data: LoginSchemaType) => {
+  const onLoginUser = async (data: LoginSchemaType) => {
     const { email, password } = data;
+    const userData = JSON.stringify({ email, password });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-    const matchedUser = users.find((user) => user.email === email && user.password === password);
-
-    if (matchedUser) {
-      setIsUser(true);
-      redirectToSearchPage();
-    } else {
+    try {
+      const response = await axios.post("/api/login", userData, config);
+      const { token } = response.data;
+      if (response.status === 200 && token) {
+        setIsUser(true);
+        redirectToSearchPage();
+        localStorage.setItem("token", token);
+      } else {
+        setIsUser(false);
+      }
+    } catch (error) {
+      console.log(error)
       setIsUser(false);
     }
   }
 
+  
+  const router = useRouter();
+
   const redirectToSearchPage = () => {
-      window.location.href = "/search";
+    // Redirect to the search page
+    router.push("/search")
   }
 
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
 
-  const message = "User does not exist";
+  const message = USER_DOES_NOT_EXIST;
   const severity = "error";
   const autoHideDuration = 2000;
 
