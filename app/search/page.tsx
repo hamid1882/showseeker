@@ -66,7 +66,7 @@ function Search() {
     return data.map(({ show }: { show: ShowData }) => ({
       poster: show.image
         ? show.image.medium
-        : "https://variety.com/wp-content/uploads/2020/12/Streaming-Movies-TV-Placeholder.jpg?w=1000",
+        : "https://static.tvmaze.com/uploads/images/medium_portrait/53/133807.jpg",
       name: show.name,
       summary: show.summary,
       type: show.type,
