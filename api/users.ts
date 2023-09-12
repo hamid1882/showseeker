@@ -5,6 +5,7 @@ addEventListener('fetch', (event) => {
     event.respondWith(handleRequest(event.request));
   });
   
+  //   @ts-ignore
   async function handleRequest(request: Request): Promise<Response> {
     const data = [
         {
