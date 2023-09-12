@@ -1,3 +1,4 @@
+import { User } from "./app/types";
 
 
 addEventListener('fetch', (event) => {
@@ -7,7 +8,7 @@ addEventListener('fetch', (event) => {
   
   //   @ts-ignore
   async function handleRequest(request: Request): Promise<Response> {
-    const data: { email: string, password: string }[] = [
+    const data: User[] = [
         {
             email: "user1@example.com",
             password: "password1",
