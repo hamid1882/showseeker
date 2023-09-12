@@ -1,3 +1,4 @@
+import { INVALID_JWT_TOKEN } from "@/constants";
 import jwt, { Secret } from "jsonwebtoken";
 import { NextResponse } from "next/server";
 
@@ -25,6 +26,6 @@ export async function GET(req: Request) {
     }
   } catch (error) {
     // If the token is invalid or expired, handle the error
-    return NextResponse.json({ message: "Invalid JWT token" }, { status: 401 });
+    return NextResponse.json({ message: INVALID_JWT_TOKEN }, { status: 401 });
   }
 }
