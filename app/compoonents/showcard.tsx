@@ -15,16 +15,11 @@ function ShowCard({ showsData }: { showsData?: ShowData[] }) {
   }
 
   return (
-    <div className="flex flex-wrap gap-2 my-5">
+    <div className="grid grid-cols-4 gap-5 grid-rows-[misonry] my-4">
       {showsData && showsData.length > 0 ? (
         showsData.map((show: ShowData, idx: number) => (
-          <Card key={idx} className="w-1/2 md:w-1/5 cursor-pointer h-full">
-            <CardMedia
-              component="img"
-              src={show.poster}
-              alt="Poster"
-              className="h-1/3"
-            />
+          <Card key={idx} className="cursor-pointer">
+            <CardMedia component="img" src={show.poster} alt="Poster" />
             <CardContent>
               <Typography variant="h5" component="div">
                 {show.name}

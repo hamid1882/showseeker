@@ -12,6 +12,7 @@ import { LoginSchema } from "../schema";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import axios from "axios";
 import { USER_DOES_NOT_EXIST } from "@/constants";
+import { VisibilityOff } from "@mui/icons-material";
 
 function Login() {
   const {
@@ -23,6 +24,7 @@ function Login() {
   });
   const [isUser, setIsUser] = useState(true);
   const [error, setError] = useState(USER_DOES_NOT_EXIST);
+  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit: SubmitHandler<LoginSchemaType> = async (
     data: LoginSchemaType
@@ -106,6 +108,7 @@ function Login() {
               color="success"
               label="Password"
               type="password"
+              security=""
               fullWidth
               {...register("password")}
               id="password"
