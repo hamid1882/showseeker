@@ -18,6 +18,7 @@ function Search() {
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setShowsData([]);
     // @ts-ignore
     const inputValue = event.target.elements.title.value;
 
