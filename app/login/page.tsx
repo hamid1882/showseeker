@@ -28,6 +28,7 @@ function Login() {
     resolver: zodResolver(LoginSchema),
   });
   const [isUser, setIsUser] = useState(true);
+  const [error, setError] = useState(USER_DOES_NOT_EXIST);
 
   const onSubmit: SubmitHandler<LoginSchemaType> = async (
     data: LoginSchemaType
@@ -55,7 +56,9 @@ function Login() {
         setIsUser(false);
       }
     } catch (error) {
-      console.log(error);
+      // @ts-ignore
+      const { message } = error.response.data;
+      setError(message);
       setIsUser(false);
     }
   };
@@ -72,7 +75,6 @@ function Login() {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
 
-  const message = USER_DOES_NOT_EXIST;
   const severity = "error";
   const autoHideDuration = 2000;
 
@@ -132,7 +134,7 @@ function Login() {
           anchorOrigin={{ horizontal: "center", vertical: "top" }}
           onClose={() => setIsUser(true)}
         >
-          <Alert severity={severity}>{message}</Alert>
+          <Alert severity={severity}>{error}</Alert>
         </Snackbar>
       </div>
     </div>
