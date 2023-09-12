@@ -13,12 +13,6 @@ import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import axios from "axios";
 import { USER_DOES_NOT_EXIST } from "@/constants";
 
-const users = [
-  { email: "user1@example.com", password: "password1" },
-  { email: "user2@example.com", password: "password2" },
-  { email: "user3@example.com", password: "password3" },
-];
-
 function Login() {
   const {
     register,
@@ -33,6 +27,12 @@ function Login() {
   const onSubmit: SubmitHandler<LoginSchemaType> = async (
     data: LoginSchemaType
   ) => {
+    await new Promise<void>((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 1000);
+    });
+
     onLoginUser(data);
   };
 
