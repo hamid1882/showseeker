@@ -11,7 +11,6 @@ import { LoginSchemaType } from '../types';
 import { LoginSchema } from '../schema';
 import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
 import axios from 'axios';
-import { useRouter } from 'next/navigation'
 import { USER_DOES_NOT_EXIST } from '@/constants';
 
 const users = [
@@ -61,12 +60,9 @@ function Login() {
     }
   }
 
-  
-  const router = useRouter();
-
   const redirectToSearchPage = () => {
     // Redirect to the search page
-    router.push("/search")
+    window.location.href = "/search";
   }
 
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
