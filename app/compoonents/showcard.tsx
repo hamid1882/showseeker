@@ -4,6 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { ShowData } from "../types";
+import Masonry from "react-masonry-css";
 
 function ShowCard({ showsData }: { showsData?: ShowData[] }) {
   function removeHtmlTags(str: string): string {
@@ -15,10 +16,18 @@ function ShowCard({ showsData }: { showsData?: ShowData[] }) {
   }
 
   return (
-    <div className="grid grid-cols-4 columns-3xs gap-5 grid-flow-dense grid-rows-[masonry] leading-6 my-4">
+    <Masonry
+      breakpointCols={{
+        default: 4,
+        1100: 3,
+        700: 2,
+        500: 1,
+      }}
+      className="flex gap-4"
+    >
       {showsData && showsData.length > 0 ? (
         showsData.map((show: ShowData, idx: number) => (
-          <Card key={idx} className="cursor-pointer h-fit">
+          <Card key={idx} className="cursor-pointer h-fit my-4">
             <CardMedia component="img" src={show.poster} alt="Poster" />
             <CardContent>
               <Typography variant="h5" component="div">
@@ -50,7 +59,7 @@ function ShowCard({ showsData }: { showsData?: ShowData[] }) {
       ) : (
         <p>No Shows Available! Search for other shows...</p>
       )}
-    </div>
+    </Masonry>
   );
 }
 

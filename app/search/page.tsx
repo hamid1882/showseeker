@@ -66,7 +66,7 @@ function Search() {
     return data.map(({ show }: { show: ShowData }) => ({
       poster: show.image
         ? show.image.medium
-        : "https://static.tvmaze.com/uploads/images/medium_portrait/53/133807.jpg",
+        : "https://d32qys9a6wm9no.cloudfront.net/images/others/not_available/poster_500x735.png?t=1693803976",
       name: show.name,
       summary: show.summary,
       type: show.type,
