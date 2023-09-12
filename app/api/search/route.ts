@@ -18,7 +18,7 @@ export async function GET(req: Request) {
     // If the token is valid, you can send a different API response
     if (decodedToken) {
       // Fetch results from TV Maze API
-      const url: string = `https://api.tvmaze.com/search/shows?q=${title}`;
+      const url: string = `${process.env.TV_MAZE_API}/search/shows?q=${title}`;
       const response: Response = await fetch(url);
       const data: object = await response.json();
 

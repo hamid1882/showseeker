@@ -3,15 +3,11 @@ import { NextResponse } from "next/server";
 import { INCORRECT_PASSWORD, USER_DOES_NOT_EXIST } from "@/constants";
 import { User } from "@/app/types";
 
-
-const users: User[] = [
-  { email: "user1@example.com", password: "password1" },
-  { email: "user2@example.com", password: "password2" },
-  { email: "user3@example.com", password: "password3" },
-];
-
 export async function POST(req: Request) {
   const { email, password }: User = await req.json();
+
+  const response = await fetch(`${process.env.BACKEND_URL}/users`);
+  const users: User[] = await response.json();
 
   const matchedUser = users.find(
     (user: User) => user.email === email
