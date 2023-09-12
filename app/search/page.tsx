@@ -45,6 +45,11 @@ function Search() {
         }
       );
 
+      if (response.data.length <= 0) {
+        setError("No shows found");
+        setOpenSnackbar(true);
+      }
+
       // Handle the response data here
       const parsedData: ShowData[] = dataParser(response.data);
       // @ts-ignore
