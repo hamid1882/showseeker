@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  const title = searchParams.get('title')
+  const title: string | null = searchParams.get('title')
   const token: string | null =  req.headers.get("jwt-token");
 
   if (!token) {
